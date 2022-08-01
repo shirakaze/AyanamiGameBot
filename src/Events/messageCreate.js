@@ -6,13 +6,30 @@ userCache = new Discord.Collection()
 // gachaCache = Discord.Collection()
 
 users.getData((error, result) => {
-    error ? console.log(error) : result.forEach(user => { userCache.set(parseInt(user.discordID), { discordID: user.discordID, coins: user.coins, gems: user.gems, lastDaily: user.lastDaily, dailyStreak: user.dailyStreak, torpedoStock: user.torpedoStock, currentShip: user.currentShip, health: user.health }); })
+    error ? console.log(error) : result.forEach(user => { userCache.set((user.discordID), { coins: user.coins, gems: user.gems, lastDaily: user.lastDaily, dailyStreak: user.dailyStreak, torpedoStock: user.torpedoStock, currentShip: user.currentShip, health: user.health }); })
 })
+
 // gacha.getData()...
 const cache = { users: userCache }
 
 module.exports = new Event("messageCreate", async (client, message) => {
     if (message.author.bot) return;
+    if (userCache.get(message.author.id) == undefined) {
+
+        const discordID = message.author.id
+        const coins = 0
+        const gems = 0
+        const lastDaily = 0
+        const dailyStreak = 0
+        const torpedoStock = 0
+        const currentShip = 0
+        const health = 0
+
+        users.addUser(discordID, coins, gems, lastDaily, dailyStreak, torpedoStock, currentShip, health, (err, result) => {
+            err ? console.log(err) : userCache.set((discordID), { coins: coins, gems: gems, lastDaily: lastDaily, dailyStreak: dailyStreak, torpedoStock: torpedoStock, currentShip: currentShip, health: health })
+        })
+    }
+
     if (message.content == "hello") await message.channel.send("Konnichiwa!");
     if (!message.content.startsWith(client.prefix)) return;
 
