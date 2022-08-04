@@ -1,20 +1,9 @@
 const Event = require("../Structures/Event.js");
-const Discord = require("discord.js")
-const users = require("../Model/DatabaseFunctions/users")
-
-userCache = new Discord.Collection()
-// gachaCache = Discord.Collection()
-
-users.getData((error, result) => {
-    error ? console.log(error) : result.forEach(user => { userCache.set((user.discordID), { coins: user.coins, gems: user.gems, lastDaily: user.lastDaily, dailyStreak: user.dailyStreak, torpedoStock: user.torpedoStock, currentShip: user.currentShip, health: user.health }); })
-})
-
-// gacha.getData()...
-const cache = { users: userCache }
+const users = require("../Model/DatabaseFunctions/users");
 
 module.exports = new Event("messageCreate", async (client, message) => {
     if (message.author.bot) return;
-    if (userCache.get(message.author.id) == undefined) {
+    if (client.usercache?.get(message.author.id) == undefined) {
 
         const discordID = message.author.id
         const coins = 0
@@ -26,7 +15,7 @@ module.exports = new Event("messageCreate", async (client, message) => {
         const health = 0
 
         users.addUser(discordID, coins, gems, lastDaily, dailyStreak, torpedoStock, currentShip, health, (err, result) => {
-            err ? console.log(err) : userCache.set((discordID), { coins: coins, gems: gems, lastDaily: lastDaily, dailyStreak: dailyStreak, torpedoStock: torpedoStock, currentShip: currentShip, health: health })
+            err ? console.log(err) : client.usercache.set((discordID), { coins: coins, gems: gems, lastDaily: lastDaily, dailyStreak: dailyStreak, torpedoStock: torpedoStock, currentShip: currentShip, health: health })
         })
     }
 
@@ -45,7 +34,7 @@ module.exports = new Event("messageCreate", async (client, message) => {
 
     if (!permission) return await message.reply(`Hmm...Seems like you do not have the permission \${command.permission}\ and can't use this command!`);
 
-    command.run(message, args, client, cache, cache);
+    command.run(message, args, client);
 
     // switch (args[0]) {
     //     case "hello":

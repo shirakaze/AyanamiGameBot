@@ -6,11 +6,11 @@ module.exports = new Command({
     name: "attack",
     description: "Attacks a target",
     permission: "SEND_MESSAGES",
-    async run(message, args, client, cache) {
+    async run(message, args, client) {
         
         const embed = new Discord.MessageEmbed();
         const attackedUser = message.mentions.users.first();
-        console.log(attackedUser.id)
+        if (attackedUser.id === undefined) return await message.channel.send("Commander, you need to specify a who to attack")
         if (attackedUser.id === "883727434602651649") return await message.channel.send("test")
         if (attackedUser.id === message.author.id) return await message.channel.send("Commander, please don't try to sink your own ships...")
         if (attackedUser.bot) return await message.channel.send("You can only attack players!");

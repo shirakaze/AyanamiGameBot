@@ -5,7 +5,7 @@ module.exports = new Command({
     name: "commands",
     description: "Display a list of Commands",
     permission: "SEND_MESSAGES",
-    async run(message, args, client, cache) {
+    async run(message, args, client) {
         
         const embed = new Discord.MessageEmbed();
 

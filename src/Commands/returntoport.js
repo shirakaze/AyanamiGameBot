@@ -8,7 +8,7 @@ module.exports = new Command({
     name: "dock",
     description: "Return your ship to port",
     permission: "SEND_MESSAGES",
-    run: async (message, args, client, cache) => {
+    run: async (message, args, client) => {
 
         const author = message.author
 
