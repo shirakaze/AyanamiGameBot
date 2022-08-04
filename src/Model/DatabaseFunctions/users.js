@@ -94,7 +94,7 @@ const userDB = {
             
             //put data to insert under user(), put 1 "?" for each data in VALUES()
             const sql = "UPDATE users SET currentShip = ? WHERE discordID = ?"
-            conn.query(sql, [torpedoStock , discordID], (err, result) => {
+            conn.query(sql, [currentShip , discordID], (err, result) => {
                 return err ? callback(err, null) : callback(null, result)
             })
         })
@@ -106,7 +106,7 @@ const userDB = {
             
             //put data to insert under user(), put 1 "?" for each data in VALUES()
             const sql = "UPDATE users SET health = ? WHERE discordID = ?"
-            conn.query(sql, [torpedoStock , discordID], (err, result) => {
+            conn.query(sql, [health , discordID], (err, result) => {
                 return err ? callback(err, null) : callback(null, result)
             })
         })

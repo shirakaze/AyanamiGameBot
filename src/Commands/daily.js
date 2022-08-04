@@ -1,7 +1,7 @@
 const Command = require("../Structures/Command.js");
 const Discord = require("discord.js");
 const Emotes = require("../Data/emotes.json");
-const users = require("../Model/DatabaseFunctions/users");
+const users = require("../Model/DatabaseFunctions/users.js");
 
 module.exports = new Command({
     name: "daily",
@@ -37,14 +37,12 @@ module.exports = new Command({
             console.log(client.usercache.get(message.author.id))
         })
 
-
         const gems = client.usercache.get(message.author.id).gems + dGems
         users.addGems(discordID, gems, (err, result) => {
             if (err) return console.log(err)
             client.usercache.get(message.author.id).gems = gems
             console.log(client.usercache.get(message.author.id))
         })
-
 
         const dailyStreak = client.usercache.get(message.author.id).dailyStreak + 1
         users.adddailyStreak(discordID, dailyStreak, (err, result) => {
