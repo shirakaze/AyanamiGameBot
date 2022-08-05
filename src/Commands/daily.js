@@ -2,6 +2,7 @@ const Command = require("../Structures/Command.js");
 const Discord = require("discord.js");
 const Emotes = require("../Data/emotes.json");
 const users = require("../Model/DatabaseFunctions/users.js");
+const dateFormatter = require("../Functions/dateformatter.js")
 
 module.exports = new Command({
     name: "daily",
@@ -24,10 +25,11 @@ module.exports = new Command({
         const discordID = message.author.id
 
         const nextdailyTime = (parseInt(client.usercache.get(message.author.id).lastDaily) + 82800000).toString()
-        if (Date.now() < nextdailyTime) return message.reply(`Commander, you can only use this command <t:${nextdailyTime.slice(0, -3)}:R>`)
+        if (Date.now() < nextdailyTime) return message.reply(`Commander, you can only use this command ${dateFormatter.hoursTo(nextdailyTime)}`)
         const lastDaily = Date.now()
         users.addlastDaily(discordID, lastDaily, (err, result) => {
             if (err) return console.log(err)
+            client.usercache.get(message.author.id).lastDaily = lastDaily
         })
 
         const coins = client.usercache.get(message.author.id).coins + dCoins

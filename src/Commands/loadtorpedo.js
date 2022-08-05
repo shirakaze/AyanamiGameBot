@@ -28,7 +28,7 @@ module.exports = new Command({
                     },
                     {
                         name: "Current HP",
-                        value: `[Insert Emojis for HP Bar]\n**${shipOwner.username}**'s Ayanami's HP: ${health}/10`,
+                        value: `[Insert Emojis for HP Bar]\n**${shipOwner.username}**'s Ayanami's HP: ${health}/10 ${Emotes.Health}`,
                         inline: false
                     },
                     {
@@ -61,7 +61,7 @@ module.exports = new Command({
                     },
                     {
                         name: "Current HP",
-                        value: `[Insert Emojis for HP Bar]\n**${shipOwner.username}**'s Ayanami's HP: ${health}/10`,
+                        value: `[Insert Emojis for HP Bar]\n**${shipOwner.username}**'s Ayanami's HP: ${health}/10 ${Emotes.Health}`,
                         inline: false
                     },
                     {
